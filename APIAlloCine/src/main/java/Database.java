@@ -138,6 +138,67 @@ public class Database {
         } finally {
             close(ps);
         }
+    }
 
+    ArrayList<User> getUsers(){
+        ArrayList<User> userArrayList = new ArrayList<User>();
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from users");
+            while(rs.next())
+                userArrayList.add(new User(rs.getString(1),rs.getString(2)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userArrayList;
+    }
+
+    void addUser(User user){
+        PreparedStatement ps = null;
+        String INSERT_SQL = "INSERT into users(login, password) values (?, ?)";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    User getUser(int id){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from users where id = '"+id+"'");
+            if (rs.next())
+                return new User(rs.getInt(1), rs.getString(2), rs.getString(3));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    boolean login(User user){
+        PreparedStatement ps = null;
+        String INSERT_SQL = "select * from users where login = ? AND password =  ?";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.execute();
+            ResultSet rs = ps.executeQuery();
+
+            if (!rs.isBeforeFirst() ) {
+                return false;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return true;
     }
 }
