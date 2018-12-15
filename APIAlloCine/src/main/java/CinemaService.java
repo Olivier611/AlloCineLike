@@ -5,25 +5,25 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.ArrayList;
 
-@Path("/film")
-public class FilmsService {
+@Path("/cinema")
+public class CinemaService {
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
-    public ArrayList<Film> getFilm() {
+    public ArrayList<Cinema> getCinemas() {
         Database database = new Database();
-        ArrayList<Film> filmArrayList = database.getFilms();
+        ArrayList<Cinema> cinemas = database.getCinemas();
         database.close();
-        return filmArrayList;
+        return cinemas;
     }
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Film getFilm(@PathParam("id") int id ) {
+    public Cinema getFilm(@PathParam("id") int id ) {
         Database database = new Database();
-        Film film = database.getFilm(id);
+        Cinema cinema = database.getCinema(id);
         database.close();
-        return film;
+        return cinema;
     }
 }

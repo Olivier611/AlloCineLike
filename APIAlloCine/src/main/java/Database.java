@@ -64,4 +64,29 @@ public class Database {
         }
         return null;
     }
+
+    ArrayList<Cinema> getCinemas(){
+        ArrayList<Cinema> cinemaArrayList = new ArrayList<Cinema>();
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from cinemas");
+            while(rs.next())
+                cinemaArrayList.add(new Cinema(rs.getInt(1),rs.getString(2), Serializer.deserialize(rs.getString(3))));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return cinemaArrayList;
+    }
+
+    Cinema getCinema(int id){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from cinemas where id = '"+id+"'");
+            if (rs.next())
+               return new Cinema(rs.getInt(1),rs.getString(2), Serializer.deserialize(rs.getString(3)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
