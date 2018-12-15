@@ -75,26 +75,26 @@ public class UserService {
 	
 	
 	
-	//
-	// EXEMPLE A SUPPRIMER POUR FRANCOIS !!!
-	// ICI JE FILTRE UNE ROUTE EN FONCTION DE SI LE USER EST CONNECTE OU NON
-	// 
-
-	@GET
-	@Path("/testprotection")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response testprotection() {
-		HttpSession session = req.getSession(true);
-		
-		if (null == session.getAttribute("user"))
-		{
-			// si user est pas connecte on renvoie erreur 401
-			return Response.status(401).entity("Authentication needed").build();
-		}
-		
-		// sinon ça veut dire qu il est connecte, on peut faire des traitements ...
-		return Response.status(200).entity("Done").build();
-	}
+//	//
+//	// EXEMPLE A SUPPRIMER POUR FRANCOIS !!!
+//	// ICI JE FILTRE UNE ROUTE EN FONCTION DE SI LE USER EST CONNECTE OU NON
+//	//
+//
+//	@GET
+//	@Path("/testprotection")
+//	@Produces(MediaType.APPLICATION_JSON)
+//	public Response testprotection() {
+//		HttpSession session = req.getSession(true);
+//
+//		if (null == session.getAttribute("user"))
+//		{
+//			// si user est pas connecte on renvoie erreur 401
+//			return Response.status(401).entity("Authentication needed").build();
+//		}
+//
+//		// sinon ï¿½a veut dire qu il est connecte, on peut faire des traitements ...
+//		return Response.status(200).entity("Done").build();
+//	}
 	
 
 }
