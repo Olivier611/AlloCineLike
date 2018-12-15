@@ -1,13 +1,17 @@
 public class Cinema {
     int id;
-    String name;
+    String nom;
     Adresse adresse;
+    int nombre_salle;
 
-    public Cinema(int id, String name, Adresse adresse) {
+    public Cinema(int id, String nom, Adresse adresse, int nombre_salle) {
         this.id = id;
-        this.name = name;
+        this.nom = nom;
         this.adresse = adresse;
+        this.nombre_salle=nombre_salle;
     }
+
+    public Cinema(){}
 
     public int getId() {
         return id;
@@ -17,12 +21,12 @@ public class Cinema {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public Adresse getAdresse() {
@@ -31,5 +35,13 @@ public class Cinema {
 
     public void setAdresse(Adresse adresse) {
         this.adresse = adresse;
+    }
+
+    public int getNombre_salle() {
+        return nombre_salle;
+    }
+
+    public void setNombre_salle(int nombre_salle) {
+        this.nombre_salle = nombre_salle;
     }
 }

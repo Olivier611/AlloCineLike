@@ -1,4 +1,3 @@
-import java.io.Console;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -29,6 +28,16 @@ public class Database {
         }
     }
 
+    public static void close(Statement statement) {
+        try {
+            if (statement != null) {
+                statement.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     ArrayList<Film> getFilms(){
         ArrayList<Film> filmArrayList = new ArrayList<Film>();
         try {
@@ -46,7 +55,7 @@ public class Database {
         try {
             Statement stmt=connection.createStatement();
             ResultSet rs=stmt.executeQuery("select * from films where nom = '"+name+"'");
-           return new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
+            return new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,13 +74,36 @@ public class Database {
         return null;
     }
 
+    void addFilm(Film film){
+
+        PreparedStatement ps = null;
+        String INSERT_SQL = "INSERT into films(nom, date_sortie, acteurs_principaux, synopsis, distributeur, type, langue) values ( ?, ?, ?, ?, ?, ?, ?)";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setString(1, film.nom);
+            ps.setString(2, film.date_sortie);
+            ps.setString(3, film.acteurs_principaux);
+            ps.setString(4, film.synopsis);  // You'll have to update this each and every year. BirthDate would be better.
+            ps.setString(5, film.distributeur);
+            ps.setString(6, film.type);
+            ps.setString(7, film.langage);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+
+    }
+
     ArrayList<Cinema> getCinemas(){
         ArrayList<Cinema> cinemaArrayList = new ArrayList<Cinema>();
         try {
             Statement stmt=connection.createStatement();
             ResultSet rs=stmt.executeQuery("select * from cinemas");
             while(rs.next())
-                cinemaArrayList.add(new Cinema(rs.getInt(1),rs.getString(2), Serializer.deserialize(rs.getString(3))));
+                cinemaArrayList.add(new Cinema(rs.getInt(1),rs.getString(2), Serializer.deserialize(rs.getString(3)),rs.getInt(4)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -83,10 +115,29 @@ public class Database {
             Statement stmt=connection.createStatement();
             ResultSet rs=stmt.executeQuery("select * from cinemas where id = '"+id+"'");
             if (rs.next())
-               return new Cinema(rs.getInt(1),rs.getString(2), Serializer.deserialize(rs.getString(3)));
+                return new Cinema(rs.getInt(1),rs.getString(2), Serializer.deserialize(rs.getString(3)),rs.getInt(4));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    void addCinema(Cinema cinema){
+
+        PreparedStatement ps = null;
+        String INSERT_SQL = "INSERT into cinemas(nom, adresse, nombre_salles) values ( ?, ?, ?)";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setString(1, cinema.nom);
+            ps.setString(2, Serializer.serialize(cinema.adresse));
+            ps.setInt(3, cinema.nombre_salle);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+
     }
 }

@@ -1,8 +1,6 @@
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
 @Path("/cinema")
@@ -25,5 +23,14 @@ public class CinemaService {
         Cinema cinema = database.getCinema(id);
         database.close();
         return cinema;
+    }
+
+    @POST
+    @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response addCinema(Cinema cinema){
+        Database database = new Database();
+        database.addCinema(cinema);
+        return Response.status(201).entity("Done").build();
     }
 }

@@ -19,6 +19,8 @@ public class Film {
         this.langage = langage;
     }
 
+    public Film(){}
+
     public int getId() {
         return id;
     }

@@ -13,6 +13,8 @@ public class Adresse {
         this.pays = pays;
     }
 
+    public Adresse(){}
+
     public int getNumero() {
         return numero;
     }
