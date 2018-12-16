@@ -1,8 +1,8 @@
 public class Cinema {
-    int id;
-    String nom;
-    Adresse adresse;
-    int nombre_salle;
+    private int id;
+    private String nom;
+    private Adresse adresse;
+    private int nombre_salle;
 
     public Cinema(int id, String nom, Adresse adresse, int nombre_salle) {
         this.id = id;

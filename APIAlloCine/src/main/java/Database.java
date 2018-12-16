@@ -81,13 +81,13 @@ public class Database {
 
         try {
             ps = this.connection.prepareStatement(INSERT_SQL);
-            ps.setString(1, film.nom);
-            ps.setString(2, film.date_sortie);
-            ps.setString(3, film.acteurs_principaux);
-            ps.setString(4, film.synopsis);  // You'll have to update this each and every year. BirthDate would be better.
-            ps.setString(5, film.distributeur);
-            ps.setString(6, film.type);
-            ps.setString(7, film.langage);
+            ps.setString(1, film.getNom());
+            ps.setString(2, film.getDate_sortie());
+            ps.setString(3, film.getActeurs_principaux());
+            ps.setString(4, film.getSynopsis());  // You'll have to update this each and every year. BirthDate would be better.
+            ps.setString(5, film.getDistributeur());
+            ps.setString(6, film.getType());
+            ps.setString(7, film.getLangage());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -129,9 +129,9 @@ public class Database {
 
         try {
             ps = this.connection.prepareStatement(INSERT_SQL);
-            ps.setString(1, cinema.nom);
-            ps.setString(2, Serializer.serialize(cinema.adresse));
-            ps.setInt(3, cinema.nombre_salle);
+            ps.setString(1, cinema.getNom());
+            ps.setString(2, Serializer.serialize(cinema.getAdresse()));
+            ps.setInt(3, cinema.getNombre_salle());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -200,5 +200,49 @@ public class Database {
             e.printStackTrace();
         }
         return true;
+    }
+
+    ArrayList<Projections> getProjections(){
+        ArrayList<Projections> projections = new ArrayList<Projections>();
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from projections");
+            while(rs.next())
+                projections.add(new Projections(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getString(5), Serializer.deserializeListSeance(rs.getString(6))));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return projections;
+    }
+
+    Projections getProjection(int id){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from projections where id = '"+id+"'");
+            if(rs.next())
+                return new Projections(rs.getInt(1),rs.getInt(2),rs.getInt(3),rs.getString(4),rs.getString(5), Serializer.deserializeListSeance(rs.getString(6)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    void addProjection(Projections projections){
+        PreparedStatement ps = null;
+        String INSERT_SQL = "INSERT into projections(id_cinema, id_film, date_debut, date_fin, seances) values ( ?, ?, ?, ?, ?)";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setInt(1, projections.getId_cinema());
+            ps.setInt(2, projections.getId_film());
+            ps.setString(3,projections.getDate_debut());
+            ps.setString(4,projections.getDate_fin());
+            ps.setString(5, Serializer.serialize(projections.getSeances()));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
     }
 }

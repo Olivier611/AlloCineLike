@@ -17,7 +17,7 @@ public class CinemaService {
         if (ville!=null){
             ArrayList<Cinema> newList= new ArrayList<Cinema>();
             for (int i =0;i<cinemas.size();i++){
-                if (cinemas.get(i).getAdresse().ville.equals(ville))
+                if (cinemas.get(i).getAdresse().getVille().equals(ville))
                     newList.add(cinemas.get(i));
             }
             return newList;

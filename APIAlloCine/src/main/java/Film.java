@@ -1,12 +1,12 @@
 public class Film {
-    int id;
-    String nom;
-    String date_sortie;
-    String acteurs_principaux;
-    String synopsis;
-    String distributeur;
-    String type;
-    String langage;
+    private int id;
+    private String nom;
+    private String date_sortie;
+    private String acteurs_principaux;
+    private String synopsis;
+    private String distributeur;
+    private String type;
+    private String langage;
 
     public Film(int id, String nom, String date_sortie, String acteurs_principaux, String synopsis, String distributeur, String type, String langage) {
         this.id = id;

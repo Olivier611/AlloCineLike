@@ -1,9 +1,9 @@
 public class Adresse {
-    int numero;
-    String rue;
-    int codePostal;
-    String ville;
-    String pays;
+    private int numero;
+    private String rue;
+    private int codePostal;
+    private String ville;
+    private String pays;
 
     public Adresse(int numero, String rue, int codePostal, String ville, String pays) {
         this.numero = numero;
