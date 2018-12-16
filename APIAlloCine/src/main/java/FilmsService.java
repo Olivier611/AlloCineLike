@@ -33,4 +33,13 @@ public class FilmsService {
         database.addFilm(film);
         return Response.status(201).entity("Done").build();
     }
+
+    @DELETE
+    @Path("/delete/{id}")
+    public Response deleteFilm(@PathParam("id") int id) {
+        Database database = new Database();
+        database.deleteFilm(id);
+        database.close();
+        return Response.status(201).entity("Done").build();
+    }
 }

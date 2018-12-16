@@ -94,7 +94,22 @@ public class Database {
         } finally {
             close(ps);
         }
+    }
 
+    void deleteFilm(int id){
+
+        PreparedStatement ps = null;
+        String DELETE_SQL = "DELETE from films where id = ?";
+
+        try {
+            ps = this.connection.prepareStatement(DELETE_SQL);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
     }
 
     ArrayList<Cinema> getCinemas(){
