@@ -1,9 +1,4 @@
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -71,6 +66,26 @@ public class UserService {
 		User user = database.getUser(id);
 		database.close();
 		return user;
+	}
+
+	@PUT
+	@Path("/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response updateUser(@PathParam("id") int id, User user){
+		HttpSession session = req.getSession(true);
+
+		if (null == session.getAttribute("user"))
+		{
+			// si user est pas connecte on renvoie erreur 401
+			return Response.status(401).entity("Authentication needed").build();
+		}
+
+		Database database = new Database();
+		database.updateUser(id,user);
+		database.close();
+		user.setId(id);
+		return Response.ok().entity(user).build();
 	}
 	
 	

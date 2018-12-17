@@ -212,13 +212,30 @@ public class Database {
         ArrayList<User> userArrayList = new ArrayList<User>();
         try {
             Statement stmt=connection.createStatement();
-            ResultSet rs=stmt.executeQuery("select * from users");
+            ResultSet rs=stmt.executeQuery("select id, login from users");
             while(rs.next())
-                userArrayList.add(new User(rs.getString(1),rs.getString(2)));
+                userArrayList.add(new User(rs.getInt(1), rs.getString(2)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return userArrayList;
+    }
+
+    void updateUser(int id, User user){
+        PreparedStatement ps = null;
+        String UPDATE_SQL = "UPDATE users SET login=?, password=? where id=?";
+
+        try {
+            ps = this.connection.prepareStatement(UPDATE_SQL);
+            ps.setString(1, user.getLogin());
+            ps.setString(2, user.getPassword());
+            ps.setInt(3, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
     }
 
     void addUser(User user){
