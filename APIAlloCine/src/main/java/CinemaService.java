@@ -1,12 +1,18 @@
 import com.sun.istack.Nullable;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
 @Path("/cinema")
 public class CinemaService {
+    @Context
+    HttpServletRequest req;
+
     @GET
     @Path("/")
     @Produces(MediaType.APPLICATION_JSON)
@@ -39,8 +45,54 @@ public class CinemaService {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addCinema(Cinema cinema){
+
+        HttpSession session = req.getSession(true);
+
+        if (null == session.getAttribute("user"))
+        {
+            // si user est pas connecte on renvoie erreur 401
+            return Response.status(401).entity("Authentication needed").build();
+        }
+
         Database database = new Database();
         database.addCinema(cinema);
         return Response.status(201).entity("Done").build();
+    }
+
+    @DELETE
+    @Path("/delete/{id}")
+    public Response deleteCinema(@PathParam("id") int id) {
+        HttpSession session = req.getSession(true);
+
+        if (null == session.getAttribute("user"))
+        {
+            // si user est pas connecte on renvoie erreur 401
+            return Response.status(401).entity("Authentication needed").build();
+        }
+
+        Database database = new Database();
+        database.deleteCinema(id);
+        database.close();
+        return Response.status(201).entity("Done").build();
+    }
+
+    @PUT
+    @Path("/update/{id}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateFilm(@PathParam("id") int id, Cinema cinema){
+        HttpSession session = req.getSession(true);
+
+        if (null == session.getAttribute("user"))
+        {
+            // si user est pas connecte on renvoie erreur 401
+            return Response.status(401).entity("Authentication needed").build();
+        }
+
+        Database database = new Database();
+        database.updateCinema(id,cinema);
+        database.close();
+        cinema.setId(id);
+        return Response.ok().entity(cinema).build();
     }
 }

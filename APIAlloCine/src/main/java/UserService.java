@@ -21,7 +21,7 @@ public class UserService {
 	@GET
 	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
-	public ArrayList<User> getCinemas() {
+	public ArrayList<User> getUsers() {
 		Database database = new Database();
 		ArrayList<User> users = database.getUsers();
 		database.close();

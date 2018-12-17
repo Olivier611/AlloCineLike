@@ -1,3 +1,4 @@
+import javax.ws.rs.Produces;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -97,13 +98,33 @@ public class Database {
     }
 
     void deleteFilm(int id){
-
         PreparedStatement ps = null;
         String DELETE_SQL = "DELETE from films where id = ?";
 
         try {
             ps = this.connection.prepareStatement(DELETE_SQL);
             ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void updateFilm(int id, Film film){
+        PreparedStatement ps = null;
+        String UPDATE_SQL = "UPDATE films SET nom=?,date_sortie=?,acteurs_principaux=?,synopsis=?,distributeur=?,type=?,langue=? where id = ?";
+        try {
+            ps = this.connection.prepareStatement(UPDATE_SQL);
+            ps.setString(1,film.getNom());
+            ps.setString(2,film.getDate_sortie());
+            ps.setString(3,film.getActeurs_principaux());
+            ps.setString(4,film.getSynopsis());
+            ps.setString(5,film.getDistributeur());
+            ps.setString(6,film.getType());
+            ps.setString(7,film.getLangage());
+            ps.setInt(8,id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -138,7 +159,6 @@ public class Database {
     }
 
     void addCinema(Cinema cinema){
-
         PreparedStatement ps = null;
         String INSERT_SQL = "INSERT into cinemas(nom, adresse, nombre_salles) values ( ?, ?, ?)";
 
@@ -147,6 +167,39 @@ public class Database {
             ps.setString(1, cinema.getNom());
             ps.setString(2, Serializer.serialize(cinema.getAdresse()));
             ps.setInt(3, cinema.getNombre_salle());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void deleteCinema(int id){
+        PreparedStatement ps = null;
+        String DELETE_SQL = "DELETE from cinemas where id = ?";
+
+        try {
+            ps = this.connection.prepareStatement(DELETE_SQL);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void updateCinema(int id, Cinema cinema){
+        PreparedStatement ps = null;
+        String UPDATE_SQL = "UPDATE cinemas SET nom=?, adresse=?, nombre_salles=? where id=?";
+
+        try {
+            ps = this.connection.prepareStatement(UPDATE_SQL);
+            ps.setString(1, cinema.getNom());
+            ps.setString(2, Serializer.serialize(cinema.getAdresse()));
+            ps.setInt(3, cinema.getNombre_salle());
+            ps.setInt(4,id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -253,6 +306,41 @@ public class Database {
             ps.setString(3,projections.getDate_debut());
             ps.setString(4,projections.getDate_fin());
             ps.setString(5, Serializer.serialize(projections.getSeances()));
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void deleteProjection(int id){
+        PreparedStatement ps = null;
+        String DELETE_SQL = "DELETE from projections where id = ?";
+
+        try {
+            ps = this.connection.prepareStatement(DELETE_SQL);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void updateProjection(int id, Projections projections){
+        PreparedStatement ps = null;
+        String UPDATE_SQL = "UPDATE projections SET id_cinema=?, id_film=?, date_debut=?, date_fin=?, seances=? where id=?";
+
+        try {
+            ps = this.connection.prepareStatement(UPDATE_SQL);
+            ps.setInt(1, projections.getId_cinema());
+            ps.setInt(2, projections.getId_film());
+            ps.setString(3,projections.getDate_debut());
+            ps.setString(4,projections.getDate_fin());
+            ps.setString(5, Serializer.serialize(projections.getSeances()));
+            ps.setInt(6,id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
