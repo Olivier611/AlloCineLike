@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
-@Path("/cinema")
+@Path("/cinemas")
 public class CinemaService {
     @Context
     HttpServletRequest req;
@@ -42,7 +42,7 @@ public class CinemaService {
     }
 
     @POST
-    @Path("/add")
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addCinema(Cinema cinema){
 
@@ -60,7 +60,7 @@ public class CinemaService {
     }
 
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/{id}")
     public Response deleteCinema(@PathParam("id") int id) {
         HttpSession session = req.getSession(true);
 
@@ -77,7 +77,7 @@ public class CinemaService {
     }
 
     @PUT
-    @Path("/update/{id}")
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateFilm(@PathParam("id") int id, Cinema cinema){

@@ -1,0 +1,644 @@
+{
+	"info": {
+		"_postman_id": "c10e195c-ef89-43fc-b57b-487052bb521a",
+		"name": "API Projet XML",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n        \"login\": \"francois\",\n        \"password\": \"123\"\n    }"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/users/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"users",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cinema by city",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Le Grand REXX\",\n    \"adresse\": \"104 Avenue de paris\",\n    \"nombre_salles\": \"45\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/cinemas?ville=Villejuif",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"cinemas"
+					],
+					"query": [
+						{
+							"key": "ville",
+							"value": "Villejuif"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get cinema",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Le Grand REXX\",\n    \"adresse\": \"104 Avenue de paris\",\n    \"nombre_salles\": \"45\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/cinemas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"cinemas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add cinema",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Le Grand REXX2\",\n    \"adresse\": {\n    \t\"numero\": \"12\",\n    \t\"rue\": \"Avenue de Paris\",\n    \t\"codePostal\": \"94800\",\n    \t\"ville\": \"Villejuif\",\n    \t\"pays\": \"France\"\n    \n},\n    \"nombre_salle\": \"45\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/cinemas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"cinemas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Cinema",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/cinemas/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"cinemas",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update cinema",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Le Grand REX\",\n    \"adresse\": {\n    \t\"numero\": \"12\",\n    \t\"rue\": \"Avenue de Paris\",\n    \t\"codePostal\": \"94800\",\n    \t\"ville\": \"Villejuif\",\n    \t\"pays\": \"France\"\n    \n},\n    \"nombre_salle\": \"45\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/cinemas/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"cinemas",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get projection",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add film",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Le Roi lion2\",\n    \"date_sortie\": \"15/10/2019\",\n    \"acteurs_principaux\": \"Jon Favreau\",\n    \"synopsis\": \"Le Roi lion est un film américain réalisé par Jon Favreau, dont la sortie est prévue en été 2019. Il s'agit d'une nouvelle version du film d'animation Le Roi lion sorti en 1994. Ce film utilise la technique de l'animation 3D\",\n    \"distributeur\": \"Fairview Entertainment Walt Disney Pictures\",\n    \"type\": \"Enfants\",\n    \"langage\": \"Anglais, Français\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/films",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"films"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Films",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/films",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"films"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Film n°2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/films/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"films",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Film",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/films/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"films",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update film",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nom\": \"Le Roi lion\",\n    \"date_sortie\": \"15/10/2019\",\n    \"acteurs_principaux\": \"Jon Favreau\",\n    \"synopsis\": \"Le Roi lion est un film américain réalisé par Jon Favreau, dont la sortie est prévue en été 2019. Il s'agit d'une nouvelle version du film d'animation Le Roi lion sorti en 1994. Ce film utilise la technique de l'animation 3D\",\n    \"distributeur\": \"Fairview Entertainment Walt Disney Pictures\",\n    \"type\": \"Enfants\",\n    \"langage\": \"Anglais, Français\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/films/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"films",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get projection par ville",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections?ville=Bordeaux",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections"
+					],
+					"query": [
+						{
+							"key": "ville",
+							"value": "Bordeaux"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get projection par ville et par cinema",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections?ville=Bordeaux&cinema=Pathé",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections"
+					],
+					"query": [
+						{
+							"key": "ville",
+							"value": "Bordeaux"
+						},
+						{
+							"key": "cinema",
+							"value": "Pathé"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get projection par ville,cinema et film",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections?ville=Bordeaux&cinema=Gaumont&film=Peter Pan",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections"
+					],
+					"query": [
+						{
+							"key": "ville",
+							"value": "Bordeaux"
+						},
+						{
+							"key": "cinema",
+							"value": "Gaumont"
+						},
+						{
+							"key": "film",
+							"value": "Peter Pan"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add projection",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_cinema\": \"2\",\n    \"id_film\": \"1\",\n    \"date_debut\": \"10/09/2018\",\n    \"date_fin\": \"10/10/2018\",\n    \"seances\": [{\"jour\":\"Lundi\",\"heure\":\"10:00\"},{\"jour\":\"Mardi\",\"heure\":\"10:00\"},{\"jour\":\"Mercredi\",\"heure\":\"10:00\"}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete projection",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections/6",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections",
+						"6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update projection",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id_cinema\": \"3\",\n    \"id_film\": \"1\",\n    \"date_debut\": \"10/09/2018\",\n    \"date_fin\": \"10/10/2018\",\n    \"seances\": [{\"jour\":\"Lundi\",\"heure\":\"10:00\"},{\"jour\":\"Mardi\",\"heure\":\"10:00\"},{\"jour\":\"Mercredi\",\"heure\":\"10:00\"}]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/APIAlloCine_war_exploded/api/projections/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"APIAlloCine_war_exploded",
+						"api",
+						"projections",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

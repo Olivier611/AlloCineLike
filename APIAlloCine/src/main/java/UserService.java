@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 
-@Path("/user")
+@Path("/users")
 public class UserService {
 
 	@Context
@@ -29,7 +29,7 @@ public class UserService {
 	}
 
 	@POST
-	@Path("/add")
+	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addUser(User user) {
 		Database database = new Database();

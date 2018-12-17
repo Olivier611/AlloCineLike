@@ -8,7 +8,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 
-@Path("/projection")
+@Path("/projections")
 public class ProjectionsService {
     @Context
     HttpServletRequest req;
@@ -18,7 +18,8 @@ public class ProjectionsService {
     @Produces(MediaType.APPLICATION_JSON)
     public ArrayList<Projections> getProjection(
             @Nullable @QueryParam ("ville") String ville,
-            @Nullable @QueryParam ("cinema") String cinema) {
+            @Nullable @QueryParam ("cinema") String cinema,
+            @Nullable @QueryParam ("film") String film) {
         Database database = new Database();
         ArrayList<Projections> projections = database.getProjections();
         if (ville!=null){
@@ -33,6 +34,14 @@ public class ProjectionsService {
             ArrayList<Projections> tmp = new ArrayList<Projections>();
             for (Projections projection:projections) {
                 if (database.getCinema(projection.getId_cinema()).getNom().equals(cinema))
+                    tmp.add(projection);
+            }
+            projections = tmp;
+        }
+        if (film!=null){
+            ArrayList<Projections> tmp = new ArrayList<Projections>();
+            for (Projections projection:projections) {
+                if (database.getFilm(projection.getId_film()).getNom().equals(film))
                     tmp.add(projection);
             }
             projections = tmp;
@@ -53,7 +62,7 @@ public class ProjectionsService {
     }
 
     @POST
-    @Path("/add")
+    @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addFilm(Projections projections){
         HttpSession session = req.getSession(true);
@@ -70,7 +79,7 @@ public class ProjectionsService {
     }
 
     @DELETE
-    @Path("/delete/{id}")
+    @Path("/{id}")
     public Response deleteProjection(@PathParam("id") int id) {
         HttpSession session = req.getSession(true);
 
@@ -87,7 +96,7 @@ public class ProjectionsService {
     }
 
     @PUT
-    @Path("/update/{id}")
+    @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateFilm(@PathParam("id") int id, Projections projections){
