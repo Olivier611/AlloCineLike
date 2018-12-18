@@ -13,6 +13,11 @@ public class User {
         this.login = login;
         this.password = password;
     }
+
+    public User(int id, String login){
+    	this.id=id;
+    	this.login=login;
+	}
     
     public User(){}
 
@@ -32,5 +37,11 @@ public class User {
 		this.password = password;
 	}
 
- 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
