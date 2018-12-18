@@ -1,7 +1,7 @@
 public class Joue {
-    int id;
-    int id_acteur;
-    int id_film;
+    private int id;
+    private int id_acteur;
+    private int id_film;
 
     public Joue(int id, int id_acteur, int id_film) {
         this.id = id;

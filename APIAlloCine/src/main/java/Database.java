@@ -17,8 +17,6 @@ public class Database {
             System.out.println("FRANCOIS  : ClassNotFoundException");
             e.printStackTrace();
         }
-        System.out.println("FRANCOIS  : "+connection.toString());
-
     }
 
     void close(){
@@ -266,7 +264,7 @@ public class Database {
 
 
     boolean login(User user){
-        PreparedStatement ps = null;
+        PreparedStatement ps;
         String INSERT_SQL = "select * from users where login = ? AND password =  ?";
 
         try {

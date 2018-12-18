@@ -22,9 +22,9 @@ public class CinemaService {
         database.close();
         if (ville!=null){
             ArrayList<Cinema> newList= new ArrayList<Cinema>();
-            for (int i =0;i<cinemas.size();i++){
-                if (cinemas.get(i).getAdresse().getVille().equals(ville))
-                    newList.add(cinemas.get(i));
+            for (Cinema cinema : cinemas) {
+                if (cinema.getAdresse().getVille().equals(ville))
+                    newList.add(cinema);
             }
             return newList;
         }

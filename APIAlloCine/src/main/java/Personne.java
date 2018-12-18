@@ -1,9 +1,9 @@
 public class Personne {
-    int id;
-    String prenom;
-    String nom;
-    String date_naissance;
-    String biographie;
+    private int id;
+    private String prenom;
+    private String nom;
+    private String date_naissance;
+    private String biographie;
 
     public Personne(int id, String prenom, String nom, String biographie,String date_naissance) {
         this.id=id;
