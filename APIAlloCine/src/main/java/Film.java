@@ -2,17 +2,15 @@ public class Film {
     private int id;
     private String nom;
     private String date_sortie;
-    private String acteurs_principaux;
     private String synopsis;
     private String distributeur;
     private String type;
     private String langage;
 
-    public Film(int id, String nom, String date_sortie, String acteurs_principaux, String synopsis, String distributeur, String type, String langage) {
+    public Film(int id, String nom, String date_sortie,  String synopsis, String distributeur, String type, String langage) {
         this.id = id;
         this.nom = nom;
         this.date_sortie = date_sortie;
-        this.acteurs_principaux = acteurs_principaux;
         this.synopsis = synopsis;
         this.distributeur = distributeur;
         this.type = type;
@@ -43,14 +41,6 @@ public class Film {
 
     public void setDate_sortie(String date_sortie) {
         this.date_sortie = date_sortie;
-    }
-
-    public String getActeurs_principaux() {
-        return acteurs_principaux;
-    }
-
-    public void setActeurs_principaux(String acteurs_principaux) {
-        this.acteurs_principaux = acteurs_principaux;
     }
 
     public String getSynopsis() {

@@ -45,7 +45,7 @@ public class Database {
             Statement stmt=connection.createStatement();
             ResultSet rs=stmt.executeQuery("select * from films");
             while(rs.next())
-                filmArrayList.add(new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8)));
+                filmArrayList.add(new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7)));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class Database {
         try {
             Statement stmt=connection.createStatement();
             ResultSet rs=stmt.executeQuery("select * from films where nom = '"+name+"'");
-            return new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
+            return new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class Database {
             Statement stmt=connection.createStatement();
             ResultSet rs=stmt.executeQuery("select * from films where id = '"+id+"'");
             if (rs.next())
-                return new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
+                return new Film(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5),rs.getString(6),rs.getString(7));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,11 +84,10 @@ public class Database {
             ps = this.connection.prepareStatement(INSERT_SQL);
             ps.setString(1, film.getNom());
             ps.setString(2, film.getDate_sortie());
-            ps.setString(3, film.getActeurs_principaux());
-            ps.setString(4, film.getSynopsis());  // You'll have to update this each and every year. BirthDate would be better.
-            ps.setString(5, film.getDistributeur());
-            ps.setString(6, film.getType());
-            ps.setString(7, film.getLangage());
+            ps.setString(3, film.getSynopsis());  // You'll have to update this each and every year. BirthDate would be better.
+            ps.setString(4, film.getDistributeur());
+            ps.setString(5, film.getType());
+            ps.setString(6, film.getLangage());
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -119,12 +118,11 @@ public class Database {
             ps = this.connection.prepareStatement(UPDATE_SQL);
             ps.setString(1,film.getNom());
             ps.setString(2,film.getDate_sortie());
-            ps.setString(3,film.getActeurs_principaux());
-            ps.setString(4,film.getSynopsis());
-            ps.setString(5,film.getDistributeur());
-            ps.setString(6,film.getType());
-            ps.setString(7,film.getLangage());
-            ps.setInt(8,id);
+            ps.setString(3,film.getSynopsis());
+            ps.setString(4,film.getDistributeur());
+            ps.setString(5,film.getType());
+            ps.setString(6,film.getLangage());
+            ps.setInt(7,id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -341,6 +339,184 @@ public class Database {
             ps.setString(4,projections.getDate_fin());
             ps.setString(5, Serializer.serialize(projections.getSeances()));
             ps.setInt(6,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    ArrayList<Personne> getPersonne(){
+        ArrayList<Personne> personneArrayList = new ArrayList<Personne>();
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from individus");
+            while(rs.next())
+                personneArrayList.add(new Personne(rs.getInt(1),rs.getString(3),rs.getString(2),rs.getString(4),rs.getString(5)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return personneArrayList;
+    }
+
+    Personne getPersonne(int id){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from individus where id = '"+id+"'");
+            if (rs.next())
+                return new Personne(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4),rs.getString(5));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    void addPersonne(Personne personne){
+
+        PreparedStatement ps = null;
+        String INSERT_SQL = "INSERT into individus(nom, prenom, biographie, date_naissance) values ( ?, ?, ?, ?)";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setString(1, personne.getNom());
+            ps.setString(2, personne.getPrenom());
+            ps.setString(3, personne.getBiographie());
+            ps.setString(4, personne.getDate_naissance());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void deletePersonne(int id){
+        PreparedStatement ps = null;
+        String DELETE_SQL = "DELETE from individus where id = ?";
+
+        try {
+            ps = this.connection.prepareStatement(DELETE_SQL);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void updatePersonne(int id, Personne personne){
+        PreparedStatement ps = null;
+        String UPDATE_SQL = "UPDATE individus SET nom=?,prenom=?,biographie=?,date_naissance=? where id = ?";
+        try {
+            ps = this.connection.prepareStatement(UPDATE_SQL);
+            ps.setString(1, personne.getNom());
+            ps.setString(2, personne.getPrenom());
+            ps.setString(3, personne.getBiographie());
+            ps.setString(4, personne.getDate_naissance());
+            ps.setInt(5,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    ArrayList<Joue> getJoue(){
+        ArrayList<Joue> joueArrayList = new ArrayList<Joue>();
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from joue");
+            while(rs.next())
+                joueArrayList.add(new Joue(rs.getInt(1),rs.getInt(2),rs.getInt(3)));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return joueArrayList;
+    }
+
+    Joue getJoue(int id){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from joue where id = '"+id+"'");
+            if (rs.next())
+                return new Joue(rs.getInt(1),rs.getInt(2),rs.getInt(3));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    ArrayList<Joue> getJouebyFilm(int id_film){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from joue where id_film = '"+id_film+"'");
+            ArrayList<Joue> joueArrayList = new ArrayList<Joue>();
+            while (rs.next())
+                joueArrayList.add(new Joue(rs.getInt(1),rs.getInt(2),rs.getInt(3)));
+            return joueArrayList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    ArrayList<Joue> getJoueByPersonne(int id_personne){
+        try {
+            Statement stmt=connection.createStatement();
+            ResultSet rs=stmt.executeQuery("select * from joue where id_acteur = '"+id_personne+"'");
+            ArrayList<Joue> joueArrayList = new ArrayList<Joue>();
+            while (rs.next())
+                joueArrayList.add(new Joue(rs.getInt(1),rs.getInt(2),rs.getInt(3)));
+            return joueArrayList;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    void addJoue(Joue joue){
+
+        PreparedStatement ps = null;
+        String INSERT_SQL = "INSERT into joue(id_acteur, id_film) values ( ?, ?)";
+
+        try {
+            ps = this.connection.prepareStatement(INSERT_SQL);
+            ps.setInt(1, joue.getId_acteur());
+            ps.setInt(2, joue.getId_film());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void deleteJoue(int id){
+        PreparedStatement ps = null;
+        String DELETE_SQL = "DELETE from joue where id = ?";
+
+        try {
+            ps = this.connection.prepareStatement(DELETE_SQL);
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            close(ps);
+        }
+    }
+
+    void updateJoue(int id, Joue joue){
+        PreparedStatement ps = null;
+        String UPDATE_SQL = "UPDATE joue SET id_acteur=?,id_film=? where id = ?";
+        try {
+            ps = this.connection.prepareStatement(UPDATE_SQL);
+            ps.setInt(1, joue.getId_acteur());
+            ps.setInt(2, joue.getId_film());
+            ps.setInt(3,id);
             ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
